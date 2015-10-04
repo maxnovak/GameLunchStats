@@ -20,9 +20,11 @@ app.post('/submitWinLoss',function(req,res){
     var gameName = req.body.GameName;
     var winner = req.body.Winner;
     var loser = req.body.Loser;
+    var listOfLosers = loser.toString().split(",");
+
     console.log("Game Name: " + gameName);
     console.log("Winner: " + winner);
-    console.log("Loser: " + loser);
+    console.log("List of losers: " + listOfLosers);
     
     mongoose.createConnection(mongoUri, function(err, res){
         if(err){
@@ -30,7 +32,7 @@ app.post('/submitWinLoss',function(req,res){
         } else {
             var matchData = new MatchData({ "GameName" : gameName, 
                                            "Winner" : winner,
-                                           "Loser" : loser});
+                                           "Loser" : listOfLosers});
             matchData.save(function(err, matchData){
                 if(err){
                     return console.error(err);

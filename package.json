@@ -1,0 +1,20 @@
+{
+    "name": "GameLunchStats",
+    "version": "0.0.1",
+    "description": "Prototype UI",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "express": "*",
+        "path": "*",
+        "http": "*",
+        "body-parser": "*",
+        "mongoose": "*",
+        "mongodb":"*"
+    },
+    "engine":{
+        "node":"*"
+    }
+}

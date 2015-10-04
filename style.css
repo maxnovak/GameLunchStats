@@ -1,0 +1,26 @@
+body{
+            background-color: #d0e4fe;
+            margin-left: 5%;
+        }
+        h1{
+            color:coral;
+            text-shadow:
+                -1px 0px black,
+                0px 1px black,
+                1px 1px black,
+                0px -1px black
+        }
+        input{
+            margin-bottom: 7px;
+        }
+        input[type='text']{
+            background-color:azure;
+        }
+        input[type='button']{
+            border-radius:75%;
+        }
+        input[type='submit']{
+            border-radius: 25%;
+            border-color: black;
+            background-color: cadetblue;
+        }

@@ -30,15 +30,10 @@ app.post('/submitWinLoss',function(req,res){
         if(err){
             console.error('Error connecting: ' + err);
         } else {
-            var matchData = new MatchData({ "GameName" : gameName, 
-                                           "Winner" : winner,
-                                           "Loser" : listOfLosers});
-            matchData.save(function(err, matchData){
-                if(err){
-                    return console.error(err);
-                }
-                console.log(matchData);
-            });
+            storeResults(winner, "win", gameName);
+            for(var i=0; i < listOfLosers.length; i++){
+                storeResults(listOfLosers[i], "loss", gameName);
+            }
         }
     });
     
@@ -48,3 +43,18 @@ app.post('/submitWinLoss',function(req,res){
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+function storeResults(player, result, game){
+    
+    var matchData = new MatchData({ "GameName" : game, 
+                           "Player" : player,
+                           "Outcome" : result});
+    matchData.save(function(err, matchData){
+        if(err){
+            return console.error(err);
+        }
+        console.log(matchData);
+    });
+    
+}

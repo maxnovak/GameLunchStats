@@ -7,7 +7,7 @@
     <script>
         $(document).ready(function(){
             $("#add").click(function(){
-                $("#loser").after('<br/><input type="text" name="Loser" placeholder="Loser" required/>');
+                $("#loserScore").after('<br/><input type="text" name="Loser" placeholder="Loser" required/><input type="text" name="loserScore" placeholder="Score" />');
             });
         });
     </script>
@@ -18,8 +18,9 @@
     <div>
         <form action="submitWinLoss" method="post">
             <input type="text" name="GameName" placeholder="Name of Game" required/><br/>
-            <input type="text" name="Winner" placeholder="Winner" required/><br/>
-            <input type="text" name="Loser" id="loser" placeholder="Loser" required/><input type="button" id="add" value="+" title="Add another player"/><br/>
+            <input type="text" name="Winner" placeholder="Winner" required/><input type="text" name="Score" placeholder="Score" /><br/>
+            <input type="text" name="Loser" placeholder="Loser" required/><input type="text" id="loserScore" name="loserScore" placeholder="Score" />
+            <input type="button" id="add" value="+" title="Add another player"/><br/>
             <input type="submit" value="Submit"/>
         </form>
     </div>

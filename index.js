@@ -16,6 +16,21 @@ app.set('port', 3000);
 app.use(bodyParser.urlencoded({ extended : false}));
 app.use(express.static(path.join(__dirname, '/')));
 
+app.get('/getGames', function (req, res) {
+    MatchData.find().distinct("GameName", function (error, data) {
+        console.log(data);
+        res.send(data);
+    });
+});
+
+app.post('/data', function (req, res) {
+    var game = req.body.game;
+    MatchData.find({"GameName": game}, function (err, data) {
+        if (err) return console.error(err);
+        res.send(data);
+    });
+});
+
 app.post('/submitWinLoss', function (req, res) {
     var gameName = req.body.GameName;
     var winner = req.body.Winner;

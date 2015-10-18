@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: "getGames",
+                    success: function (data, status){
+                        var gameList = document.getElementById("gameList");
+                        for (game of data){
+                            var option = document.createElement("option");
+                            option.value = game;
+                            option.id = game;
+                            option.text = game;
+                            console.log(option);
+                            gameList.add(option);
+                        }
+                    }
+                });
+                $("#wins").click(function () {
+                    var searchGame = $("#gameList option:selected").val();
+                    $.ajax({
+                        method: "post",
+                        url: "/data",
+                        data: {game : searchGame},
+                        success: function (data, status){
+                            for(item of data){
+                                $("#GameData").append(item.Player + " " + item.Outcome + "</br>");
+                                console.log(item.Player);
+                            }
+                            
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <select id="gameList">
+        </select>
+        <input type="button" id="wins" value="Get wins"/>
+        <div id="GameData">
+        </div>
+    </body>    
+</html>

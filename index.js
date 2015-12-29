@@ -12,7 +12,7 @@ var MatchData = require('./MatchData_model.js');
 
 mongoose.connect(mongoUri);
 
-app.set('port', 3000);
+app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({ extended : false}));
 app.use(express.static(path.join(__dirname, '/')));
 
@@ -46,7 +46,7 @@ app.post('/submitWinLoss', function (req, res) {
             console.error('Error connecting: ' + err);
         } else {
             storeResults(winner, "win", gameName);
-            for (i = 0; i < listOfLosers.length; i++) {
+            for (var i = 0; i < listOfLosers.length; i++) {
                 storeResults(listOfLosers[i], "loss", gameName);
             }
         }

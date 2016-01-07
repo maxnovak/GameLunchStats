@@ -60,21 +60,53 @@ http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-
 function storeResults(player, result, game) {
-    
-    var matchData = new MatchData({ 
-                           "Player" : player,
-                           "GameList" : {
-                               "GameName" : game,
-                               "Outcome" : result
-                           }
-                        });
-    matchData.save(function (err, matchData) {
-        if (err) {
-            return console.error(err);
+   MatchData.find({"Player":player}).limit(1).count(function(err, data){
+        if(err){
+            console.error(err);
         }
-        console.log(matchData);
-    });
+        if (data < 1){
+            
+        
+            var matchData = new MatchData({ 
+                                   "Player" : player,
+                                   "GameList" : [{
+                                       "GameName" : game,
+                                       "Outcome" : result
+                                   }]
+                                });
+            
+            matchData.save(function (err, matchData) {
+                if (err) {
+                    return console.error(err);
+                }
+                console.log(matchData);
+            });
+        }else{
+        
     
+             MatchData.find({"Player":player}, function(err, data) {
+                
+                
+                if (err){
+                    return console.error(err);
+                }
+                console.log(data[0]);
+                console.log("            ");
+                console.log(data[0].GameList);
+                var newGame = {
+                    GameName: game,
+                    Outcome: result
+                };
+                
+                data[0].GameList.push(newGame);
+                
+                data[0].save(function(err, moreData){
+                   if(err){
+                       return console.error(err);
+                   } 
+                });
+            });
+        } 
+    });
 }

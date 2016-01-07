@@ -51,6 +51,7 @@ app.post('/submitWinLoss', function (req, res) {
             }
         }
     });
+    res.send("success");
     
 });
 

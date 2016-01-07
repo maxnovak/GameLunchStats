@@ -63,9 +63,13 @@ http.createServer(app).listen(app.get('port'), function () {
 
 function storeResults(player, result, game) {
     
-    var matchData = new MatchData({ "GameName" : game, 
+    var matchData = new MatchData({ 
                            "Player" : player,
-                           "Outcome" : result});
+                           "GameList" : {
+                               "GameName" : game,
+                               "Outcome" : result
+                           }
+                        });
     matchData.save(function (err, matchData) {
         if (err) {
             return console.error(err);

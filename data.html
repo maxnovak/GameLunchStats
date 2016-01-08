@@ -7,8 +7,8 @@
                 $.ajax({
                     url: "getGames",
                     success: function (data, status){
-                        var gameList = document.getElementById("gameList");
-                        for (game of data){
+                        var gameList = document.getElementById("playerList");
+                        for (var game of data){
                             var option = document.createElement("option");
                             option.value = game;
                             option.id = game;
@@ -19,15 +19,16 @@
                     }
                 });
                 $("#wins").click(function () {
-                    var searchGame = $("#gameList option:selected").val();
+                    var searchPlayer = $("#playerList option:selected").val();
+                    $("#GameData").html("");
                     $.ajax({
                         method: "post",
                         url: "/data",
-                        data: {game : searchGame},
+                        data: {player : searchPlayer},
                         success: function (data, status){
-                            for(item of data){
-                                $("#GameData").append(item.Player + " " + item.Outcome + "</br>");
-                                console.log(item.Player);
+                            var games = data[0].GameList;
+                            for(var item of games){
+                                $("#GameData").append(item.GameName + " " + item.Outcome + "</br>");
                             }
                             
                         }
@@ -38,9 +39,9 @@
     </head>
 
     <body>
-        <select id="gameList">
+        <select id="playerList">
         </select>
-        <input type="button" id="wins" value="Get wins"/>
+        <input type="button" id="wins" value="Get Games"/>
         <div id="GameData">
         </div>
     </body>    

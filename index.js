@@ -19,18 +19,21 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, '/')));
 
 app.get('/getGames', function(req, res) {
-    MatchData.find().distinct("GameName", function(error, data) {
+    MatchData.find().distinct("Player", function(error, data) {
         console.log(data);
         res.send(data);
     });
 });
 
 app.post('/data', function(req, res) {
-    var game = req.body.game;
+    var player = req.body.player;
     MatchData.find({
-        "GameName": game
+        "Player": player
     }, function(err, data) {
-        if (err) return console.error(err);
+        if (err) {
+            return console.error(err);
+        }
+        console.log(data);
         res.send(data);
     });
 });

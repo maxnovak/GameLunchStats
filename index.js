@@ -16,9 +16,10 @@ app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/')));
 
-app.get('/getGames', function(req, res) {
+app.get('/getPlayers', function(req, res) {
     MatchData.find().distinct("Player", function(error, data) {
         console.log(data);
         res.send(data);

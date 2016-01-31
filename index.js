@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, '/')));
 
-app.get('/getGames', function(req, res) {
+app.get('/getPlayers', function(req, res) {
     MatchData.find().distinct("Player", function(error, data) {
         console.log(data);
         res.send(data);

@@ -12,7 +12,8 @@
         "http": "*",
         "body-parser": "*",
         "mongoose": "*",
-        "mongodb":"*"
+        "mongodb":"*",
+        "angular":"1.x"
     },
     "engine":{
         "node":"*"

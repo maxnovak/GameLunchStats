@@ -1,23 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="gameStats">
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="app.js"></script>
         <script>
             $(document).ready(function () {
-                $.ajax({
-                    url: "getGames",
-                    success: function (data, status){
-                        var gameList = document.getElementById("playerList");
-                        for (var game of data){
-                            var option = document.createElement("option");
-                            option.value = game;
-                            option.id = game;
-                            option.text = game;
-                            console.log(option);
-                            gameList.add(option);
-                        }
-                    }
-                });
                 $("#wins").click(function () {
                     var searchPlayer = $("#playerList option:selected").val();
                     $("#GameData").html("");
@@ -38,8 +26,9 @@
         </script>
     </head>
 
-    <body>
+    <body ng-controller="DataController as gameData">
         <select id="playerList">
+            <option ng-repeat="player in players" id="{{player}}" value="{{player}}">{{player}}</option>
         </select>
         <input type="button" id="wins" value="Get Games"/>
         <div id="GameData">

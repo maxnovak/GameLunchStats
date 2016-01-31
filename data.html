@@ -4,33 +4,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <script src="app.js"></script>
-        <script>
-            $(document).ready(function () {
-                $("#wins").click(function () {
-                    var searchPlayer = $("#playerList option:selected").val();
-                    $("#GameData").html("");
-                    $.ajax({
-                        method: "post",
-                        url: "/data",
-                        data: {player : searchPlayer},
-                        success: function (data, status){
-                            var games = data[0].GameList;
-                            for(var item of games){
-                                $("#GameData").append(item.GameName + " " + item.Outcome + "</br>");
-                            }
-                            
-                        }
-                    });
-                });
-            });
-        </script>
     </head>
 
     <body ng-controller="DataController as gameData">
         <select id="playerList">
             <option ng-repeat="player in players" id="{{player}}" value="{{player}}">{{player}}</option>
         </select>
-        <input type="button" id="wins" value="Get Games"/>
+        <input type="button" id="wins" value="Get Games" ng-click="getGameStats()"/>
         <div id="GameData">
         </div>
     </body>    
